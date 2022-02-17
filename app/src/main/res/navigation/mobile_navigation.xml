@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_list">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.anatolykravchenko.brewerydatabase.ui.home.HomeFragment"
+        android:id="@+id/nav_list"
+        android:name="com.anatolykravchenko.brewerydatabase.ui.home.ListFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_list" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.anatolykravchenko.brewerydatabase.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_search"
+        android:name="com.anatolykravchenko.brewerydatabase.ui.gallery.SearchFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_search" />
 
 </navigation>
