@@ -1,4 +1,4 @@
-package com.anatolykravchenko.brewerydatabase.data.network.model
+package com.anatolykravchenko.brewerydatabase.data.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

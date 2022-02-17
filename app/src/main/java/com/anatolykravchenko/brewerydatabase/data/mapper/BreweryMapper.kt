@@ -1,4 +1,4 @@
-package com.anatolykravchenko.brewerydatabase.data.network.mapper
+package com.anatolykravchenko.brewerydatabase.data.mapper
 
 class BreweryMapper {
 

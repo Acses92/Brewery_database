@@ -1,10 +1,10 @@
 package com.anatolykravchenko.brewerydatabase.domain
 
-import androidx.lifecycle.LiveData
+import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 
 interface BreweryRepository {
-    suspend fun getBreweryList(): LiveData<List<Brewery>>
+    suspend fun getBreweryList(): List<BreweryDto>
 
-    suspend fun getBrewery(): LiveData<Brewery>
+    suspend fun getBrewery(): Brewery
 
 }
