@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiFactory {
-    private const val BASE_URL = "https://api.openbrewerydb.org/breweries"
+    private const val BASE_URL = "https://api.openbrewerydb.org/"
 
 
     private val retrofit = Retrofit.Builder()

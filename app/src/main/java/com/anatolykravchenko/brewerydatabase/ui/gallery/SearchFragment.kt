@@ -8,13 +8,17 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.anatolykravchenko.brewerydatabase.R
 import com.anatolykravchenko.brewerydatabase.databinding.FragmentSearchBinding
+import com.anatolykravchenko.brewerydatabase.domain.ViewModelFactory
+import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
+import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
+
 
 class SearchFragment : Fragment() {
 
     private lateinit var galleryViewModel: GalleryViewModel
     private var _binding: FragmentSearchBinding? = null
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,7 +30,10 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         galleryViewModel =
-                ViewModelProvider(this).get(GalleryViewModel::class.java)
+                ViewModelProvider(
+                    this,
+                    ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
+                ).get(GalleryViewModel::class.java)
 
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root

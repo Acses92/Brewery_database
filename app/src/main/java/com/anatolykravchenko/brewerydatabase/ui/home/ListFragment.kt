@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.anatolykravchenko.brewerydatabase.databinding.FragmentListBinding
+import com.anatolykravchenko.brewerydatabase.domain.ViewModelFactory
+import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
+import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
 
 class ListFragment : Fragment() {
 
@@ -25,7 +28,10 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         listViewModel =
-                ViewModelProvider(this).get(ListViewModel::class.java)
+                ViewModelProvider(
+                    this,
+                    ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
+                ).get(ListViewModel::class.java)
 
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val root: View = binding.root
