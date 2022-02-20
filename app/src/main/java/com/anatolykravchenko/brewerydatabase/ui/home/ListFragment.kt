@@ -8,19 +8,19 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import by.kirich1409.viewbindingdelegate.CreateMethod
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.anatolykravchenko.brewerydatabase.R
 import com.anatolykravchenko.brewerydatabase.databinding.FragmentListBinding
 import com.anatolykravchenko.brewerydatabase.domain.ViewModelFactory
 import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
 import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(R.layout.fragment_list) {
 
     private lateinit var listViewModel: ListViewModel
-    private var _binding: FragmentListBinding? = null
+    private val binding: FragmentListBinding by viewBinding(createMethod = CreateMethod.INFLATE)
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,18 +33,19 @@ class ListFragment : Fragment() {
                     ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
                 ).get(ListViewModel::class.java)
 
-        _binding = FragmentListBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val textView: TextView = binding.textHome
         listViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
-        return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

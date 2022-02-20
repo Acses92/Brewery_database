@@ -8,21 +8,21 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewbinding.ViewBinding
+import by.kirich1409.viewbindingdelegate.CreateMethod
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.databinding.FragmentSearchBinding
 import com.anatolykravchenko.brewerydatabase.domain.ViewModelFactory
+import com.anatolykravchenko.brewerydatabase.R
 import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
 import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
 
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private lateinit var galleryViewModel: GalleryViewModel
-    private var _binding: FragmentSearchBinding? = null
+    private val binding: FragmentSearchBinding by viewBinding(createMethod = CreateMethod.INFLATE)
 
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,18 +35,19 @@ class SearchFragment : Fragment() {
                     ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
                 ).get(GalleryViewModel::class.java)
 
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+     //   val root: View = binding.root
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val textView: TextView = binding.textGallery
         galleryViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
-        return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }
