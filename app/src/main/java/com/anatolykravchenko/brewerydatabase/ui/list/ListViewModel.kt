@@ -1,4 +1,4 @@
-package com.anatolykravchenko.brewerydatabase.ui.home
+package com.anatolykravchenko.brewerydatabase.ui.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,4 +11,7 @@ class ListViewModel(private val breweryRepository: BreweryRepository) : ViewMode
         value = "This is home Fragment"
     }
     val text: LiveData<String> = _text
+
+    private val repository = breweryRepository
+
 }

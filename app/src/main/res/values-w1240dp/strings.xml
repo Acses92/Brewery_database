@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="brewery_name">Brewery Name</string>
+    <string name="brewery_type">Brewery Type</string>
+    <string name="brewery_city" />
+</resources>

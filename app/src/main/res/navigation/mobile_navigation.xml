@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_list"
-        android:name="com.anatolykravchenko.brewerydatabase.ui.home.ListFragment"
+        android:name="com.anatolykravchenko.brewerydatabase.ui.list.ListFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_list" />
 

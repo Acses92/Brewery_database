@@ -3,7 +3,7 @@ package com.anatolykravchenko.brewerydatabase.domain
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.anatolykravchenko.brewerydatabase.ui.search.SearchViewModel
-import com.anatolykravchenko.brewerydatabase.ui.home.ListViewModel
+import com.anatolykravchenko.brewerydatabase.ui.list.ListViewModel
 
 class ViewModelFactory(private val breweryRepository: BreweryRepository): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
