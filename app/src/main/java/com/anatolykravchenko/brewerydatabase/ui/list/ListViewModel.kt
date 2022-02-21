@@ -6,30 +6,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
-import kotlinx.coroutines.async
+import com.anatolykravchenko.brewerydatabase.domain.Resource
 import kotlinx.coroutines.launch
 import kotlin.Exception
 
 class ListViewModel(private val breweryRepository: BreweryRepository) : ViewModel() {
 
-    private val breweries = MutableLiveData<List<BreweryDto>>()
+    private val breweries = MutableLiveData<Resource<List<BreweryDto>>>()
     private val repository = breweryRepository
     init {
         loadBreweries()
     }
 
     private fun loadBreweries() {
-        viewModelScope.async {
+        viewModelScope.launch {
+            breweries.postValue(Resource.loading(null))
             try {
                 val breweriesFromApi = repository.getBreweryList()
-                breweries.postValue(breweriesFromApi)
+                breweries.postValue(Resource.success(breweriesFromApi))
             } catch (e: Exception){
-
+                breweries.postValue(Resource.error(e.toString(), null))
             }
         }
     }
 
-    fun getBreweries(): LiveData<List<BreweryDto>> {
+    fun getBreweries(): LiveData<Resource<List<BreweryDto>>> {
         return breweries
     }
 
