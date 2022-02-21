@@ -55,7 +55,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private fun setupUI() {
         val breweriesRecyclerView: RecyclerView = binding.BreweyListRecyclerView as RecyclerView
         breweriesRecyclerView.layoutManager = LinearLayoutManager(context)
-        breweriesRecyclerView.adapter = BreweryListAdapter(arrayListOf())
+        adapter  = BreweryListAdapter(arrayListOf())
     }
 
     private fun setupObserver() {
