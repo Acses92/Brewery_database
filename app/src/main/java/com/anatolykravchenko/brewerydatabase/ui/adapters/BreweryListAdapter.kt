@@ -24,4 +24,8 @@ class BreweryListAdapter(private val breweries: ArrayList<BreweryDto>):
     }
 
     override fun getItemCount(): Int = breweries.size
+
+    fun addBrewery(list: List<BreweryDto>) = breweries.addAll(list)
 }
+
+

@@ -16,6 +16,8 @@ import com.anatolykravchenko.brewerydatabase.domain.ViewModelFactory
 import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
 import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
 import com.anatolykravchenko.brewerydatabase.ui.adapters.BreweryListAdapter
+import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
+
 
 class ListFragment : Fragment(R.layout.fragment_list) {
 
@@ -29,30 +31,32 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        setupViewModel()
+        val view =  binding.root
+        setupUI()
+        setupObserver()
+        return view
+    }
+
+    private fun setupViewModel() {
         listViewModel =
                 ViewModelProvider(
                     this,
                     ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
                 ).get(ListViewModel::class.java)
-
-        val view =  binding.root
-        setupUI()
-        return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 
     private fun setupUI() {
         breweriesRecyclerView = binding.BreweyListRecyclerView as RecyclerView
         breweriesRecyclerView.layoutManager = LinearLayoutManager(context)
-        breweriesRecyclerView.adapter = adapter
+        breweriesRecyclerView.adapter = BreweryListAdapter(arrayListOf())
+    }
+
+    private fun setupObserver() {
+        listViewModel.getBreweries().observe(this) {
+            it.let {breweries -> adapter.addBrewery(breweries) }
+        }
     }
 }
