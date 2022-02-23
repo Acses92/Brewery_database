@@ -69,10 +69,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 }
                 Status.LOADING ->{
                     binding.progressBar.visibility = View.VISIBLE
-                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
                 Status.ERROR -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
