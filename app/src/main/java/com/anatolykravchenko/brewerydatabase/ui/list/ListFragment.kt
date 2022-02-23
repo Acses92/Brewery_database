@@ -26,10 +26,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private lateinit var listViewModel: ListViewModel
     private val binding: FragmentListBinding by viewBinding(createMethod = CreateMethod.INFLATE)
     private lateinit var adapter: BreweryListAdapter
+    private lateinit var  breweriesRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +43,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         return view
     }
 
+
     private fun setupViewModel() {
         listViewModel =
                 ViewModelProvider(
@@ -51,11 +52,11 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 ).get(ListViewModel::class.java)
     }
 
-
     private fun setupUI() {
-        val breweriesRecyclerView: RecyclerView = binding.BreweyListRecyclerView as RecyclerView
+        breweriesRecyclerView  = binding.BreweyListRecyclerView
         breweriesRecyclerView.layoutManager = LinearLayoutManager(context)
-        adapter  = BreweryListAdapter(arrayListOf())
+        adapter = BreweryListAdapter()
+        breweriesRecyclerView.adapter  = adapter
     }
 
     private fun setupObserver() {
@@ -63,6 +64,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             when(it.status) {
                 Status.SUCCESS ->{
                     it.data?.let { breweries -> renderList(breweries) }
+
                 }
                 Status.LOADING ->{
         //            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
@@ -75,6 +77,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     }
 
     private fun renderList(breweries: List<BreweryDto>) {
+        adapter.myData.clear()
         adapter.addBrewery(breweries)
+//        adapter.notifyDataSetChanged()
     }
 }
