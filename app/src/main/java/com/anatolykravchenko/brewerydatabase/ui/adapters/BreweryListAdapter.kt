@@ -24,6 +24,7 @@ class BreweryListAdapter():
             breweryName.text = brewery.name
             breweryType.text = brewery.breweryType
             breweryCity.text = brewery.city
+
         }
     }
 

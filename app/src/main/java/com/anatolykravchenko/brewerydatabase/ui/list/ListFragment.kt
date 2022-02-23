@@ -64,13 +64,15 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             when(it.status) {
                 Status.SUCCESS ->{
                     it.data?.let { breweries -> renderList(breweries) }
-
+                    binding.progressBar.visibility = View.GONE
+                    binding.BreweyListRecyclerView.visibility = View.VISIBLE
                 }
                 Status.LOADING ->{
-        //            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    binding.progressBar.visibility = View.VISIBLE
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 }
                 Status.ERROR -> {
-        //            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 }
             }
         }
