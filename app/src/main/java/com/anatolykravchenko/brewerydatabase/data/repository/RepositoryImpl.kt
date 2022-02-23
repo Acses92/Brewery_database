@@ -8,11 +8,9 @@ import com.anatolykravchenko.brewerydatabase.data.network.ApiService
 class RepositoryImpl(
     private val apiService: ApiService
 ): BreweryRepository {
+    var page: Int = 1
 
-
-
-    override suspend fun getBreweryList() = apiService.getListBreweries()
-
+    override suspend fun getBreweryList() = apiService.getListBreweries(page)
 
     override suspend fun getBrewery() = TODO()
 
