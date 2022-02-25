@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -54,7 +55,9 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     private fun setupUI() {
         breweriesRecyclerView  = binding.BreweyListRecyclerView
         breweriesRecyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = BreweryListAdapter()
+        adapter = BreweryListAdapter {
+            findNavController().navigate(R.id.breweryDetailFragment, null)
+        }
         breweriesRecyclerView.adapter  = adapter
     }
 
