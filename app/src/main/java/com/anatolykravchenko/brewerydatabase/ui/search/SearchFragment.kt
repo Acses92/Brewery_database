@@ -10,17 +10,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.anatolykravchenko.brewerydatabase.databinding.FragmentSearchBinding
+import com.anatolykravchenko.brewerydatabase.databinding.SearchFragmentBinding
 import com.anatolykravchenko.brewerydatabase.domain.ViewModelFactory
 import com.anatolykravchenko.brewerydatabase.R
 import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
 import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
 
 
-class SearchFragment : Fragment(R.layout.fragment_search) {
+class SearchFragment : Fragment(R.layout.search_fragment) {
 
     private lateinit var searchViewModel: SearchViewModel
-    private val binding: FragmentSearchBinding by viewBinding(createMethod = CreateMethod.INFLATE)
+    private val binding: SearchFragmentBinding by viewBinding(createMethod = CreateMethod.INFLATE)
 
 
     override fun onCreateView(

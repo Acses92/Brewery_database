@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
-import com.anatolykravchenko.brewerydatabase.databinding.FragmentListBinding
+import com.anatolykravchenko.brewerydatabase.databinding.BreweryListFragmentBinding
 import com.anatolykravchenko.brewerydatabase.domain.ViewModelFactory
 import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
 import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
@@ -21,16 +21,15 @@ import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.domain.Status
 
 
-class ListFragment : Fragment(R.layout.fragment_list) {
+class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private lateinit var listViewModel: ListViewModel
-    private val binding: FragmentListBinding by viewBinding(createMethod = CreateMethod.INFLATE)
+    private val binding: BreweryListFragmentBinding by viewBinding(
+        createMethod = CreateMethod.INFLATE)
     private lateinit var adapter: BreweryListAdapter
-    private lateinit var  breweriesRecyclerView: RecyclerView
+    private lateinit var breweriesRecyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -81,6 +80,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private fun renderList(breweries: List<BreweryDto>) {
         adapter.myData.clear()
         adapter.addBrewery(breweries)
-//        adapter.notifyDataSetChanged()
+        adapter.notifyDataSetChanged()
     }
 }
