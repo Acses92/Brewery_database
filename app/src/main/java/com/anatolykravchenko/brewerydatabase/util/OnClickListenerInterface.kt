@@ -1,4 +1,4 @@
-package com.anatolykravchenko.brewerydatabase.domain
+package com.anatolykravchenko.brewerydatabase.util
 
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 

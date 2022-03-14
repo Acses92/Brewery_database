@@ -1,7 +1,8 @@
-package com.anatolykravchenko.brewerydatabase.domain
+package com.anatolykravchenko.brewerydatabase.util
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import com.anatolykravchenko.brewerydatabase.ui.search.SearchViewModel
 import com.anatolykravchenko.brewerydatabase.ui.list.ListViewModel
 import com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailViewModel

@@ -10,7 +10,7 @@ import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
 import com.anatolykravchenko.brewerydatabase.databinding.BreweryDetailFragmentBinding
-import com.anatolykravchenko.brewerydatabase.domain.ViewModelFactory
+import com.anatolykravchenko.brewerydatabase.util.ViewModelFactory
 import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
 import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
 

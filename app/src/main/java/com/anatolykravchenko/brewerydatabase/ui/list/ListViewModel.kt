@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
-import com.anatolykravchenko.brewerydatabase.domain.Resource
+import com.anatolykravchenko.brewerydatabase.util.Resource
 import kotlinx.coroutines.launch
 import kotlin.Exception
 
