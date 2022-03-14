@@ -12,4 +12,9 @@
     <string name="brewery_name">Brewery Name</string>
     <string name="brewery_type">Brewery Type</string>
     <string name="brewery_city">Brewery City </string>
+    <string name="brewery_name_detail">Brewery Name</string>
+    <string name="brewery_type">Brewery Type</string>
+    <string name="brewery_country">Brewery Country</string>
+    <string name="brewery_city_detail">Brewery City</string>
+    <string name="brewery_city_detail">Brewery City</string>
 </resources>

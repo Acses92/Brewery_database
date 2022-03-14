@@ -20,6 +20,7 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     private val binding: BreweryDetailFragmentBinding by viewBinding(
         createMethod = CreateMethod.INFLATE)
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,4 +36,9 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
             ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
         ).get(BreweryDetailViewModel::class.java)
     }
+
+    private fun setupUi() {
+    }
+
+
 }

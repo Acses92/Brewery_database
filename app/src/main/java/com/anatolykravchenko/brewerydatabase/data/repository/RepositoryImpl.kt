@@ -11,7 +11,11 @@ class RepositoryImpl(
     var page: Int = 1
 
     override suspend fun getBreweryList() = apiService.getListBreweries(page)
+    override suspend fun getBrewery(): Brewery {
+        TODO("Not yet implemented")
+    }
 
-    override suspend fun getBrewery() = TODO()
+
+
 
 }
