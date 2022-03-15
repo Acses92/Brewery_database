@@ -13,13 +13,9 @@
         <action
             android:id="@+id/action_to_brewery_detail"
             app:destination="@id/breweryDetailFragment" >
-            <argument
-                android:name="brewery"
-                android:defaultValue="int" />
-            <argument
-                android:name="breweryName"
-                android:defaultValue="test" />
+
         </action>
+
     </fragment>
 
     <fragment
@@ -30,7 +26,9 @@
     <fragment
         android:id="@+id/breweryDetailFragment"
         android:name="com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment"
-        android:label="BreweryDetailFragment" />
+        android:label="BreweryDetailFragment" >
+        <argument android:name="breweryName" />
+    </fragment>
     <argument
         android:name="BreweryName"
         android:defaultValue="test" />

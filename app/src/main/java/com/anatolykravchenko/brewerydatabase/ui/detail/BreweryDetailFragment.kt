@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
@@ -19,6 +20,7 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     private lateinit var breweryDetailViewModel: BreweryDetailViewModel
     private val binding: BreweryDetailFragmentBinding by viewBinding(
         createMethod = CreateMethod.INFLATE)
+    val args: BreweryDetailFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -27,6 +29,7 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
+        setupUi()
         return binding.root
     }
 
@@ -38,6 +41,8 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     }
 
     private fun setupUi() {
+        val name = args.breweryName
+        binding.breweryNameDetail.text = name
     }
 
 

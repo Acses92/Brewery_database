@@ -33,7 +33,7 @@ class ListViewModel(private val breweryRepository: BreweryRepository) : ViewMode
         }
     }
 
-    private fun onClick(breweryDto: BreweryDto) {
+    fun onClick(breweryDto: BreweryDto) {
         _openDetail.value = breweryDto
     }
 

@@ -88,7 +88,8 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     }
 
     private fun openDetail(breweryDto: BreweryDto) {
-        val action = ListFragmentDirections.actionToBreweryDetail()
+        val name: String = breweryDto.name!!
+        val action = ListFragmentDirections.actionToBreweryDetail(name)
         findNavController().navigate(action)
 
     }

@@ -12,7 +12,7 @@ onItemClicked: (Int) -> Unit): RecyclerView.ViewHolder(itemView) {
             onItemClicked(bindingAdapterPosition)
         }
     }
-    val breweryName: TextView = itemView.findViewById(R.id.breweryName)
+    val breweryName: TextView = itemView.findViewById(R.id.breweryDetail)
     val breweryType: TextView = itemView.findViewById(R.id.breweryType)
     val breweryCity: TextView = itemView.findViewById(R.id.breweryCity)
 }
