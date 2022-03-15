@@ -1,5 +1,7 @@
 package com.anatolykravchenko.brewerydatabase.domain
 
+import android.os.Parcelable
+
 data class Brewery(
     val address2: Any?,
     val address3: Any?,
@@ -18,5 +20,4 @@ data class Brewery(
     val street: String?,
     val updatedAt: String,
     val websiteUrl: Any?
-
-)
+) 

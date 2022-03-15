@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.util.Resource
+import com.anatolykravchenko.brewerydatabase.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 import kotlin.Exception
 
@@ -14,6 +15,8 @@ class ListViewModel(private val breweryRepository: BreweryRepository) : ViewMode
 
     private val breweries = MutableLiveData<Resource<List<BreweryDto>>>()
     private val repository = breweryRepository
+    private val _openDetail = SingleLiveEvent<BreweryDto>()
+    val openDetail: LiveData<BreweryDto> = _openDetail
     init {
         loadBreweries()
     }
@@ -28,6 +31,10 @@ class ListViewModel(private val breweryRepository: BreweryRepository) : ViewMode
                 breweries.postValue(Resource.error(e.toString(), null))
             }
         }
+    }
+
+    private fun onClick(breweryDto: BreweryDto) {
+        _openDetail.value = breweryDto
     }
 
     fun getBreweries(): LiveData<Resource<List<BreweryDto>>> {
