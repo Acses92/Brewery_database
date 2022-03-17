@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -95,7 +94,6 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private fun openDetail(breweryDto: BreweryDto) {
         val name: String = breweryDto.name!!
-        //val name = "SD"
         val action= ListFragmentDirections.actionNavListToBreweryDetailFragment(name)
         findNavController().navigate(action)
     }
