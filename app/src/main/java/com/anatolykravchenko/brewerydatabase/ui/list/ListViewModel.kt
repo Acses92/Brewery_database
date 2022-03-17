@@ -17,6 +17,7 @@ class ListViewModel(private val breweryRepository: BreweryRepository) : ViewMode
     private val repository = breweryRepository
     private val _openDetail = SingleLiveEvent<BreweryDto>()
     val openDetail: LiveData<BreweryDto> = _openDetail
+    val downloadStatus = false
     init {
         loadBreweries()
     }

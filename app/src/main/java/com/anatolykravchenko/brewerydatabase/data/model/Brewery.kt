@@ -1,4 +1,4 @@
-package com.anatolykravchenko.brewerydatabase.domain
+package com.anatolykravchenko.brewerydatabase.data.model
 
 import android.os.Parcelable
 
