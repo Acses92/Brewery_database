@@ -30,12 +30,10 @@ class BreweryListAdapter(
             breweryType.text = brewery.breweryType
             breweryCity.text = brewery.city
         }
-        holder.itemView.setOnClickListener {onItemClicked.invoke(brewery)}
+        holder.itemView.setOnClickListener {onItemClicked(brewery)}
     }
 
     fun addBrewery(list: List<BreweryDto>) = myData.addAll(list)
-
-
 }
 
 

@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.CreateMethod
@@ -41,9 +41,15 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         setupUI()
         setupViewModel()
         setupObserver()
+        setupOpenDetail()
         return view
     }
 
+    private fun setupOpenDetail() {
+        listViewModel.openDetail.observe(viewLifecycleOwner) {brewery ->
+            openDetail(brewery)
+        }
+    }
 
     private fun setupViewModel() {
         listViewModel =
@@ -57,7 +63,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         breweriesRecyclerView  = binding.BreweyListRecyclerView
         breweriesRecyclerView.layoutManager = LinearLayoutManager(context)
         adapter = BreweryListAdapter {
-        //    findNavController().navigate(R.id.breweryDetailFragment, null)
+            listViewModel.onClick(it)
         }
         breweriesRecyclerView.adapter  = adapter
     }
@@ -89,8 +95,8 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private fun openDetail(breweryDto: BreweryDto) {
         val name: String = breweryDto.name!!
-        val action = ListFragmentDirections.actionToBreweryDetail(name)
+        //val name = "SD"
+        val action= ListFragmentDirections.actionNavListToBreweryDetailFragment(name)
         findNavController().navigate(action)
-
     }
 }
