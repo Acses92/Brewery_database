@@ -38,11 +38,16 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         savedInstanceState: Bundle?
     ): View? {
         val view =  binding.root
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupUI()
         setupViewModel()
         setupObserver()
         setupOpenDetail()
-        return view
     }
 
     private fun setupOpenDetail() {
