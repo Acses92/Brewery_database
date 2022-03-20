@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.CreateMethod
@@ -95,6 +96,6 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     private fun openDetail(breweryDto: BreweryDto) {
         val name: String = breweryDto.name!!
         val action= ListFragmentDirections.actionNavListToBreweryDetailFragment(name)
-        findNavController().navigate(action)
+        requireView().findNavController().navigate(action)
     }
 }
