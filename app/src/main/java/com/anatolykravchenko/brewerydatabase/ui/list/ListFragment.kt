@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,7 @@ import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
 import com.anatolykravchenko.brewerydatabase.ui.adapters.BreweryListAdapter
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.util.Status
+import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 
 
 class ListFragment : Fragment(R.layout.brewery_list_fragment) {
@@ -30,7 +33,6 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         createMethod = CreateMethod.INFLATE)
     private lateinit var adapter: BreweryListAdapter
     private lateinit var breweriesRecyclerView: RecyclerView
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,10 +49,10 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         setupUI()
         setupViewModel()
         setupObserver()
-        setupOpenDetail()
+        setupOpenDetail(view)
     }
 
-    private fun setupOpenDetail() {
+    private fun setupOpenDetail(view: View) {
         listViewModel.openDetail.observe(viewLifecycleOwner) {brewery ->
             openDetail(brewery)
         }
@@ -99,8 +101,21 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     }
 
     private fun openDetail(breweryDto: BreweryDto) {
-        val name: String = breweryDto.name!!
-        val action= ListFragmentDirections.actionNavListToBreweryDetailFragment(name)
-        requireView().findNavController().navigate(action)
+        //передлать нормально с мапером
+        val brewery = Brewery(
+            breweryType = breweryDto.breweryType.toString(),
+            city = breweryDto.city.toString(),
+            country = breweryDto.country.toString(),
+            createdAt = breweryDto.createdAt.toString(),
+            id = breweryDto.id.toString(),
+            name = breweryDto.name.toString(),
+            state = breweryDto.state.toString(),
+            websiteUrl = breweryDto.websiteUrl.toString()
+        )
+        val bundle =  Bundle()
+        bundle.putParcelable("Brewery", brewery)
+        findNavController().navigate(R.id.breweryDetailFragment, bundle)
+        //    val action= ListFragmentDirections.actionNavListToBreweryDetailFragment()
+        //view.findNavController().navigate(action)
     }
 }

@@ -16,21 +16,23 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_search"
-        android:name="com.anatolykravchenko.brewerydatabase.ui.search.SearchFragment"
-        android:label="@string/menu_search"
-        tools:layout="@layout/search_fragment" />
-    <fragment
         android:id="@+id/breweryDetailFragment"
         android:name="com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment"
         android:label="BreweryDetailFragment" >
         <argument
             android:name="breweryName"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="1" />
+        <action
+            android:id="@+id/action_breweryDetailFragment_to_nav_list"
+            app:destination="@id/nav_list" />
     </fragment>
-    <argument
-        android:name="BreweryName"
-        android:defaultValue="test" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.anatolykravchenko.brewerydatabase.ui.search.SearchFragment"
+        android:label="@string/menu_search"
+        tools:layout="@layout/search_fragment" />
 
 </navigation>

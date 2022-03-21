@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
@@ -14,23 +13,29 @@ import com.anatolykravchenko.brewerydatabase.databinding.BreweryDetailFragmentBi
 import com.anatolykravchenko.brewerydatabase.util.ViewModelFactory
 import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
 import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
+import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 
 
 class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     private lateinit var breweryDetailViewModel: BreweryDetailViewModel
     private val binding: BreweryDetailFragmentBinding by viewBinding(
         createMethod = CreateMethod.INFLATE)
-    val args: BreweryDetailFragmentArgs by navArgs()
-
-
+//    val args: BreweryDetailFragmentArgs by navArgs()
+    private  var brewery: Brewery? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        brewery = arguments?.getParcelable("Brewery")
         setupViewModel()
         setupUi()
-        return binding.root
     }
 
     private fun setupViewModel() {
@@ -41,8 +46,13 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     }
 
     private fun setupUi() {
-        val name = args.breweryName
-        binding.breweryNameDetail.text = name
+ //       val name = args.breweryName
+        binding.breweryNameDetail.text = brewery?.name
+        binding.breweryCityDetail.text = brewery?.city
+        binding.breweryCountry.text = brewery?.country
+        binding.breweryDateOfCreate.text = brewery?.createdAt
+        binding.breweryState.text = brewery?.state
+        binding.breweryWebsiteUrl.text = brewery?.websiteUrl
     }
 
 
