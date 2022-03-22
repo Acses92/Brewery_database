@@ -2,10 +2,12 @@ package com.anatolykravchenko.brewerydatabase.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
@@ -22,13 +24,30 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         createMethod = CreateMethod.INFLATE)
 //    val args: BreweryDetailFragmentArgs by navArgs()
     private  var brewery: Brewery? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
 
         return binding.root
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> {
+                findNavController().navigate(R.id.action_breweryDetailFragment_to_nav_list)
+            }
+        }
+        return true
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,6 +56,8 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         setupViewModel()
         setupUi()
     }
+
+
 
     private fun setupViewModel() {
         breweryDetailViewModel = ViewModelProvider(
@@ -54,6 +75,4 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         binding.breweryState.text = brewery?.state
         binding.breweryWebsiteUrl.text = brewery?.websiteUrl
     }
-
-
 }

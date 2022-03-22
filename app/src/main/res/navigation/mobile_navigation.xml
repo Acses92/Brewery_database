@@ -19,14 +19,10 @@
         android:id="@+id/breweryDetailFragment"
         android:name="com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment"
         android:label="BreweryDetailFragment" >
-        <argument
-            android:name="breweryName"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="1" />
         <action
             android:id="@+id/action_breweryDetailFragment_to_nav_list"
-            app:destination="@id/nav_list" />
+            app:destination="@id/nav_list"
+            app:launchSingleTop="false" />
     </fragment>
 
     <fragment
