@@ -35,7 +35,7 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
 
-    ): View? {
+    ): View {
 
         return binding.root
     }
@@ -57,8 +57,6 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         setupUi()
     }
 
-
-
     private fun setupViewModel() {
         breweryDetailViewModel = ViewModelProvider(
             this,
@@ -67,10 +65,10 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     }
 
     private fun setupUi() {
- //       val name = args.breweryName
         binding.breweryNameDetail.text = brewery?.name
         binding.breweryCityDetail.text = brewery?.city
         binding.breweryCountry.text = brewery?.country
+        binding.breweryTypeDetail.text = brewery?.breweryType
         binding.breweryDateOfCreate.text = brewery?.createdAt
         binding.breweryState.text = brewery?.state
         binding.breweryWebsiteUrl.text = brewery?.websiteUrl
