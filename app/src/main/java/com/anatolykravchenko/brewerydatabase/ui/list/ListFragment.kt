@@ -24,10 +24,13 @@ import com.anatolykravchenko.brewerydatabase.ui.adapters.BreweryListAdapter
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.util.Status
 import com.anatolykravchenko.brewerydatabase.data.model.Brewery
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
+    @Inject
     private lateinit var listViewModel: ListViewModel
     private val binding: BreweryListFragmentBinding by viewBinding(
         createMethod = CreateMethod.INFLATE)
@@ -63,7 +66,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
                 ViewModelProvider(
                     this,
                     ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
-                ).get(ListViewModel::class.java)
+                )[ListViewModel::class.java]
     }
 
     private fun setupUI() {
