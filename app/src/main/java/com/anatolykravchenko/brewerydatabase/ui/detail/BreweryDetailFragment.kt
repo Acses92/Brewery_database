@@ -43,7 +43,7 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             android.R.id.home -> {
-                findNavController().navigate(R.id.action_breweryDetailFragment_to_nav_list)
+           //     findNavController().navigate(R.id.action_breweryDetailFragment_to_nav_list)
             }
         }
         return true

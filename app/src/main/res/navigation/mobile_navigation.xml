@@ -2,33 +2,4 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_list">
-
-    <fragment
-        android:id="@+id/nav_list"
-        android:name="com.anatolykravchenko.brewerydatabase.ui.list.ListFragment"
-        android:label="@string/menu_breweries"
-        tools:layout="@layout/brewery_list_fragment" >
-        <action
-            android:id="@+id/action_nav_list_to_breweryDetailFragment"
-            app:destination="@id/breweryDetailFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/breweryDetailFragment"
-        android:name="com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment"
-        android:label="BreweryDetailFragment" >
-        <action
-            android:id="@+id/action_breweryDetailFragment_to_nav_list"
-            app:destination="@id/nav_list"
-            app:launchSingleTop="false" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_search"
-        android:name="com.anatolykravchenko.brewerydatabase.ui.search.SearchFragment"
-        android:label="@string/menu_search"
-        tools:layout="@layout/search_fragment" />
-
-</navigation>
+    android:id="@+id/mobile_navigation"/>

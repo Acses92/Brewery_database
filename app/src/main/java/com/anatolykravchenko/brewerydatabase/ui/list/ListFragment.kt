@@ -114,7 +114,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         )
         val bundle =  Bundle()
         bundle.putParcelable("Brewery", brewery)
-        findNavController().navigate(R.id.breweryDetailFragment, bundle)
+      //  findNavController().navigate(R.id.breweryDetailFragment, bundle)
         //    val action= ListFragmentDirections.actionNavListToBreweryDetailFragment()
         //view.findNavController().navigate(action)
     }

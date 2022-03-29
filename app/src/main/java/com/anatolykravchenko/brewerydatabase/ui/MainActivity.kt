@@ -2,6 +2,7 @@ package com.anatolykravchenko.brewerydatabase.ui
 
 import android.os.Bundle
 import android.view.Menu
+import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,11 +13,18 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.anatolykravchenko.brewerydatabase.R
 import com.anatolykravchenko.brewerydatabase.databinding.ActivityMainBinding
+import com.anatolykravchenko.brewerydatabase.ui.list.ListFragment
+import com.anatolykravchenko.brewerydatabase.ui.search.SearchFragment
+import com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment
+
+
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var listFragment: ListFragment
+    private lateinit var searchFragment: SearchFragment
+    private lateinit var breweryDetailFragment: BreweryDetailFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,31 +33,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
+        val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, 0, 0 )
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
 
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_list, R.id.nav_search
-            ), drawerLayout
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        listFragment = ListFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.nav_host_fragment_content_main, listFragment)
+            .commit()
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
