@@ -30,19 +30,30 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        actionBarSetup()
+        navigationViewSetup()
+        homeFragmentSetup()
+    }
 
-        setSupportActionBar(binding.appBarMain.toolbar)
-        val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, 0, 0 )
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-
+    private fun homeFragmentSetup() {
+        //Настраиваем стартовый фрагмент
         listFragment = ListFragment()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.nav_host_fragment_content_main, listFragment)
             .commit()
+    }
 
+    private fun actionBarSetup() {
+        //Настраиваем actionBar
+        setSupportActionBar(binding.appBarMain.toolbar)
+        val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, 0, 0 )
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+    }
+
+    private fun navigationViewSetup() {
+        //обрабатываем NavigationView
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = false
             binding.drawerLayout.closeDrawers()
@@ -64,6 +75,5 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 }

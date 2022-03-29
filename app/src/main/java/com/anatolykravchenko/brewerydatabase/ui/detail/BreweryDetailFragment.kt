@@ -6,8 +6,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.ListFragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
@@ -22,7 +22,6 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     private lateinit var breweryDetailViewModel: BreweryDetailViewModel
     private val binding: BreweryDetailFragmentBinding by viewBinding(
         createMethod = CreateMethod.INFLATE)
-//    val args: BreweryDetailFragmentArgs by navArgs()
     private  var brewery: Brewery? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +43,11 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         when(item.itemId) {
             android.R.id.home -> {
            //     findNavController().navigate(R.id.action_breweryDetailFragment_to_nav_list)
+                val fragment = ListFragment()
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment_content_main, fragment)
+                    .commit()
             }
         }
         return true
