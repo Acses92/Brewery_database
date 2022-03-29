@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var listFragment: ListFragment
     private lateinit var searchFragment: SearchFragment
-    private lateinit var breweryDetailFragment: BreweryDetailFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +42,28 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.nav_host_fragment_content_main, listFragment)
             .commit()
+
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            menuItem.isChecked = false
+            binding.drawerLayout.closeDrawers()
+            when(menuItem.itemId) {
+                R.id.nav_list -> {
+                    listFragment = ListFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment_content_main, listFragment)
+                        .commit()
+                }
+                R.id.nav_search -> {
+                    searchFragment = SearchFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment_content_main, searchFragment)
+                        .commit()
+                }
+            }
+            true
+        }
 
     }
 }
