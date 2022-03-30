@@ -16,8 +16,9 @@ import com.anatolykravchenko.brewerydatabase.util.ViewModelFactory
 import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
 import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
 import com.anatolykravchenko.brewerydatabase.data.model.Brewery
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     private lateinit var breweryDetailViewModel: BreweryDetailViewModel
     private val binding: BreweryDetailFragmentBinding by viewBinding(

@@ -15,7 +15,8 @@ import javax.inject.Inject
 import kotlin.Exception
 
 @HiltViewModel
-class ListViewModel @Inject constructor(private val breweryRepository: BreweryRepository) : ViewModel() {
+class ListViewModel @Inject constructor(
+    private val breweryRepository: BreweryRepository) : ViewModel() {
 
     private val breweries = MutableLiveData<Resource<List<BreweryDto>>>()
     private val repository = breweryRepository

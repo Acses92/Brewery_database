@@ -16,9 +16,10 @@ import com.anatolykravchenko.brewerydatabase.databinding.ActivityMainBinding
 import com.anatolykravchenko.brewerydatabase.ui.list.ListFragment
 import com.anatolykravchenko.brewerydatabase.ui.search.SearchFragment
 import com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

@@ -21,8 +21,9 @@ import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.util.Status
 import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 import com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private lateinit var listViewModel: ListViewModel
@@ -46,10 +47,10 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         setupUI()
         setupViewModel()
         setupObserver()
-        setupOpenDetail(view)
+        setupOpenDetail()
     }
 
-    private fun setupOpenDetail(view: View) {
+    private fun setupOpenDetail() {
         listViewModel.openDetail.observe(viewLifecycleOwner) {brewery ->
             openDetail(brewery)
         }

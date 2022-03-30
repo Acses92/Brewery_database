@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.R
+import javax.inject.Inject
 
-class BreweryListAdapter(
+class BreweryListAdapter @Inject constructor(
     private val onItemClicked: (BreweryDto) ->Unit
 ):
     RecyclerView.Adapter<BreweryViewHolder>() {
