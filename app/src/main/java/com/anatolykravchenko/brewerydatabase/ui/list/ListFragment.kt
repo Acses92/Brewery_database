@@ -6,12 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -24,13 +20,11 @@ import com.anatolykravchenko.brewerydatabase.ui.adapters.BreweryListAdapter
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.util.Status
 import com.anatolykravchenko.brewerydatabase.data.model.Brewery
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment
 
-@AndroidEntryPoint
+
 class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
-    @Inject
     private lateinit var listViewModel: ListViewModel
     private val binding: BreweryListFragmentBinding by viewBinding(
         createMethod = CreateMethod.INFLATE)
@@ -66,7 +60,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
                 ViewModelProvider(
                     this,
                     ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
-                )[ListViewModel::class.java]
+                ).get(ListViewModel::class.java)
     }
 
     private fun setupUI() {
@@ -117,8 +111,12 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         )
         val bundle =  Bundle()
         bundle.putParcelable("Brewery", brewery)
-        findNavController().navigate(R.id.breweryDetailFragment, bundle)
-        //    val action= ListFragmentDirections.actionNavListToBreweryDetailFragment()
-        //view.findNavController().navigate(action)
+        val fragment = BreweryDetailFragment()
+        fragment.arguments = bundle
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.nav_host_fragment_content_main, fragment)
+            .commit()
+
     }
 }
