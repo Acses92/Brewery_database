@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.nav_host_fragment_content_main, listFragment)
-            .addToBackStack(null)
             .commit()
     }
 
