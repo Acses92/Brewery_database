@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
-    private lateinit var breweryDetailViewModel: BreweryDetailViewModel
+    private val breweryDetailViewModel by viewModels<BreweryDetailViewModel>()
     private val binding: BreweryDetailFragmentBinding by viewBinding(
         createMethod = CreateMethod.INFLATE)
     private  var brewery: Brewery? = null
@@ -40,6 +41,8 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         return binding.root
     }
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             android.R.id.home -> {
@@ -58,16 +61,10 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         brewery = arguments?.getParcelable("Brewery")
-        setupViewModel()
         setupUi()
     }
 
-    private fun setupViewModel() {
-        breweryDetailViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
-        ).get(BreweryDetailViewModel::class.java)
-    }
+
 
     private fun setupUi() {
         binding.breweryNameDetail.text = brewery?.name

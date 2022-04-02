@@ -8,6 +8,8 @@ import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.util.Resource
 import com.anatolykravchenko.brewerydatabase.util.SingleLiveEvent
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.launch
@@ -25,6 +27,7 @@ class ListViewModel @Inject constructor(
     init {
         loadBreweries()
     }
+
 
     private fun loadBreweries() {
         viewModelScope.launch {

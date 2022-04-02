@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
-    private lateinit var listViewModel: ListViewModel
+    private val listViewModel by viewModels<ListViewModel>()
     private val binding: BreweryListFragmentBinding by viewBinding(
         createMethod = CreateMethod.INFLATE)
     private lateinit var adapter: BreweryListAdapter
@@ -45,7 +47,6 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
-        setupViewModel()
         setupObserver()
         setupOpenDetail()
     }
@@ -54,14 +55,6 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         listViewModel.openDetail.observe(viewLifecycleOwner) {brewery ->
             openDetail(brewery)
         }
-    }
-
-    private fun setupViewModel() {
-        listViewModel =
-                ViewModelProvider(
-                    this,
-                    ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
-                ).get(ListViewModel::class.java)
     }
 
     private fun setupUI() {
@@ -100,7 +93,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private fun openDetail(breweryDto: BreweryDto) {
         //передлать нормально с мапером
-        val brewery = Brewery(
+        var brewery: Brewery? = Brewery(
             breweryType = breweryDto.breweryType.toString(),
             city = breweryDto.city.toString(),
             country = breweryDto.country.toString(),
