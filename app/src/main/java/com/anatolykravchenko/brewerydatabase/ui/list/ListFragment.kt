@@ -40,7 +40,6 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         savedInstanceState: Bundle?
     ): View? {
         val view =  binding.root
-
         return view
     }
 
@@ -50,6 +49,12 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         setupObserver()
         setupOpenDetail()
     }
+
+    override fun onDetach() {
+        super.onDetach()
+        getActivity()?.getViewModelStore()?.clear()
+    }
+
 
     private fun setupOpenDetail() {
         listViewModel.openDetail.observe(viewLifecycleOwner) {brewery ->
@@ -93,7 +98,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private fun openDetail(breweryDto: BreweryDto) {
         //передлать нормально с мапером
-        var brewery: Brewery? = Brewery(
+        val brewery: Brewery? = Brewery(
             breweryType = breweryDto.breweryType.toString(),
             city = breweryDto.city.toString(),
             country = breweryDto.country.toString(),
@@ -109,8 +114,8 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         fragment.arguments = bundle
         parentFragmentManager
             .beginTransaction()
+            .detach(this)
             .replace(R.id.nav_host_fragment_content_main, fragment)
             .commit()
-
     }
 }

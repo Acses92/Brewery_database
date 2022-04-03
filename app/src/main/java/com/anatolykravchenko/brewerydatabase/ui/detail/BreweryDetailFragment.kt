@@ -1,23 +1,17 @@
 package com.anatolykravchenko.brewerydatabase.ui.detail
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
 import com.anatolykravchenko.brewerydatabase.databinding.BreweryDetailFragmentBinding
-import com.anatolykravchenko.brewerydatabase.util.ViewModelFactory
-import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
-import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
 import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.currentCoroutineContext
 
 @AndroidEntryPoint
 class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
@@ -25,6 +19,7 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     private val binding: BreweryDetailFragmentBinding by viewBinding(
         createMethod = CreateMethod.INFLATE)
     private  var brewery: Brewery? = null
+    private lateinit var  listFragment: ListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,29 +37,18 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     }
 
 
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            android.R.id.home -> {
-           //     findNavController().navigate(R.id.action_breweryDetailFragment_to_nav_list)
-                val fragment = ListFragment()
-                parentFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.nav_host_fragment_content_main, fragment)
-                    .commit()
-            }
-        }
-        return true
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         brewery = arguments?.getParcelable("Brewery")
         setupUi()
+        binding.backButton.setOnClickListener {
+            listFragment = ListFragment()
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment_content_main, listFragment)
+                .commit()
+        }
     }
-
-
 
     private fun setupUi() {
         binding.breweryNameDetail.text = brewery?.name
