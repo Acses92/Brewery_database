@@ -4,10 +4,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.anatolykravchenko.brewerydatabase.R
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-class BreweryViewHolder @Inject constructor(itemView: View,
+class BreweryViewHolder (itemView: View,
 onItemClicked: (Int) -> Unit): RecyclerView.ViewHolder(itemView) {
     init {
         itemView.setOnClickListener {

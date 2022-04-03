@@ -4,17 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
+import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import com.anatolykravchenko.brewerydatabase.util.Resource
 import com.anatolykravchenko.brewerydatabase.util.SingleLiveEvent
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.Exception
 
 @HiltViewModel
 class ListViewModel @Inject constructor(

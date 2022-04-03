@@ -1,17 +1,18 @@
 package com.anatolykravchenko.brewerydatabase.ui.detail
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
-import com.anatolykravchenko.brewerydatabase.databinding.BreweryDetailFragmentBinding
 import com.anatolykravchenko.brewerydatabase.data.model.Brewery
+import com.anatolykravchenko.brewerydatabase.databinding.BreweryDetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.currentCoroutineContext
 
 @AndroidEntryPoint
 class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
@@ -41,6 +42,10 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         super.onViewCreated(view, savedInstanceState)
         brewery = arguments?.getParcelable("Brewery")
         setupUi()
+        backButtonPres()
+
+    }
+    private fun backButtonPres() {
         binding.backButton.setOnClickListener {
             listFragment = ListFragment()
             parentFragmentManager

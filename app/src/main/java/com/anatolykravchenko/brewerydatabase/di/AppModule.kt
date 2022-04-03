@@ -1,13 +1,9 @@
 package com.anatolykravchenko.brewerydatabase.di
 
-import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
-import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import com.anatolykravchenko.brewerydatabase.data.network.ApiService
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

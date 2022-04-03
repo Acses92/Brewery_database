@@ -42,7 +42,4 @@ class SearchFragment : Fragment(R.layout.search_fragment) {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 }
