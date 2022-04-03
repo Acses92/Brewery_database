@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.CreateMethod
@@ -14,12 +15,12 @@ import com.anatolykravchenko.brewerydatabase.databinding.SearchFragmentBinding
 import com.anatolykravchenko.brewerydatabase.util.ViewModelFactory
 import com.anatolykravchenko.brewerydatabase.R
 import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
-import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.search_fragment) {
 
-    private lateinit var searchViewModel: SearchViewModel
+    private val searchViewModel by viewModels<SearchViewModel>()
     private val binding: SearchFragmentBinding by viewBinding(createMethod = CreateMethod.INFLATE)
 
 
@@ -28,11 +29,7 @@ class SearchFragment : Fragment(R.layout.search_fragment) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        searchViewModel =
-                ViewModelProvider(
-                    this,
-                    ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
-                ).get(SearchViewModel::class.java)
+
 
         return binding.root
     }
