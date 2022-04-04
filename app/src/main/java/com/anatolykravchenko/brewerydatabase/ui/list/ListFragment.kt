@@ -48,8 +48,8 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private fun setupOpenDetail() {
         listViewModel.openDetail.observe(viewLifecycleOwner) {it ->
-            brewery = listViewModel.openDetail(it)
-            openFragment(brewery)
+            brewery =  listViewModel.mapDto(it)
+            openDetail(brewery)
         }
     }
 
@@ -87,8 +87,8 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         adapter.notifyDataSetChanged()
     }
 
-    private fun openFragment(brewery: Brewery) {
-        val fragment: Fragment = newInstance(brewery)
+    private fun openDetail(brewery: Brewery) {
+        val fragment = newInstance(brewery)
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.nav_host_fragment_content_main, fragment)
@@ -98,7 +98,8 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     companion object {
         private val ARG = "my_Args"
-        fun newInstance(brewery: Brewery): Fragment {
+
+        fun newInstance(brewery: Brewery):Fragment {
             val arg: Bundle = Bundle()
             arg.putParcelable("Brewery", brewery)
             val fragment = BreweryDetailFragment()
