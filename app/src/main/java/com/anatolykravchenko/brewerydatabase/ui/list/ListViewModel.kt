@@ -1,9 +1,6 @@
 package com.anatolykravchenko.brewerydatabase.ui.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import com.anatolykravchenko.brewerydatabase.util.Resource
@@ -11,12 +8,16 @@ import com.anatolykravchenko.brewerydatabase.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.anatolykravchenko.brewerydatabase.data.model.Brewery
+
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
     private val breweryRepository: BreweryRepository) : ViewModel() {
 
-    private val breweries = MutableLiveData<Resource<List<BreweryDto>>>()
+    private val breweriesDto = MutableLiveData<Resource<List<BreweryDto>>>()
+    private val brewery = MutableLiveData<List<Brewery>>()
+    private lateinit var breweriesFromApi: List<BreweryDto>
     private val repository = breweryRepository
     private val _openDetail = SingleLiveEvent<BreweryDto>()
     val openDetail: LiveData<BreweryDto> = _openDetail
@@ -27,14 +28,27 @@ class ListViewModel @Inject constructor(
 
     private fun loadBreweries() {
         viewModelScope.launch {
-            breweries.postValue(Resource.loading(null))
+            breweriesDto.postValue(Resource.loading(null))
             try {
-                val breweriesFromApi = repository.getBreweryList()
-                breweries.postValue(Resource.success(breweriesFromApi))
+                breweriesFromApi = repository.getBreweryList()
+                breweriesDto.postValue(Resource.success(breweriesFromApi))
             } catch (e: Exception){
-                breweries.postValue(Resource.error(e.toString(), null))
+                breweriesDto.postValue(Resource.error(e.toString(), null))
             }
         }
+    }
+
+    fun openDetail(breweryDto: BreweryDto): Brewery {
+        return Brewery(
+            breweryType = breweryDto.breweryType.toString(),
+            city = breweryDto.city.toString(),
+            country = breweryDto.country.toString(),
+            createdAt = breweryDto.createdAt.toString(),
+            id = breweryDto.id.toString(),
+            name = breweryDto.name.toString(),
+            state = breweryDto.state.toString(),
+            websiteUrl = breweryDto.websiteUrl.toString()
+        )
     }
 
     fun onClick(breweryDto: BreweryDto) {
@@ -42,7 +56,7 @@ class ListViewModel @Inject constructor(
     }
 
     fun getBreweries(): LiveData<Resource<List<BreweryDto>>> {
-        return breweries
+        return breweriesDto
     }
 
 

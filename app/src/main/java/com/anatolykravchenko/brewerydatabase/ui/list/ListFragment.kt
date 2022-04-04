@@ -28,6 +28,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         createMethod = CreateMethod.INFLATE)
     private lateinit var adapter: BreweryListAdapter
     private lateinit var breweriesRecyclerView: RecyclerView
+    private lateinit var brewery: Brewery
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,8 +47,9 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     }
 
     private fun setupOpenDetail() {
-        listViewModel.openDetail.observe(viewLifecycleOwner) {brewery ->
-            openDetail(brewery)
+        listViewModel.openDetail.observe(viewLifecycleOwner) {it ->
+            brewery = listViewModel.openDetail(it)
+            openFragment(brewery)
         }
     }
 
@@ -85,26 +87,23 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         adapter.notifyDataSetChanged()
     }
 
-    private fun openDetail(breweryDto: BreweryDto) {
-        //передлать нормально с мапером
-        val brewery: Brewery? = Brewery(
-            breweryType = breweryDto.breweryType.toString(),
-            city = breweryDto.city.toString(),
-            country = breweryDto.country.toString(),
-            createdAt = breweryDto.createdAt.toString(),
-            id = breweryDto.id.toString(),
-            name = breweryDto.name.toString(),
-            state = breweryDto.state.toString(),
-            websiteUrl = breweryDto.websiteUrl.toString()
-        )
-        val bundle =  Bundle()
-        bundle.putParcelable("Brewery", brewery)
-        val fragment = BreweryDetailFragment()
-        fragment.arguments = bundle
+    private fun openFragment(brewery: Brewery) {
+        val fragment: Fragment = newInstance(brewery)
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.nav_host_fragment_content_main, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    companion object {
+        private val ARG = "my_Args"
+        fun newInstance(brewery: Brewery): Fragment {
+            val arg: Bundle = Bundle()
+            arg.putParcelable("Brewery", brewery)
+            val fragment = BreweryDetailFragment()
+            fragment.arguments = arg
+            return fragment
+        }
     }
 }
