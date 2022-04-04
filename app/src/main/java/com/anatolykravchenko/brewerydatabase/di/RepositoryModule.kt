@@ -1,6 +1,6 @@
 package com.anatolykravchenko.brewerydatabase.di
 
-import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
+import com.anatolykravchenko.brewerydatabase.data.repository.BreweryRepositoryImpl
 import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import dagger.Binds
 import dagger.Module
@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
  abstract class RepositoryModule {
     @Binds
     abstract fun bindGetBreweryList(
-        repositoryImpl: RepositoryImpl
+        breweryRepositoryImpl: BreweryRepositoryImpl
     ): BreweryRepository
 
 }

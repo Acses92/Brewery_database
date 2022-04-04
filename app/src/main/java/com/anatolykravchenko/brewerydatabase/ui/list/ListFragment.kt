@@ -45,12 +45,6 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         setupOpenDetail()
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        getActivity()?.getViewModelStore()?.clear()
-    }
-
-
     private fun setupOpenDetail() {
         listViewModel.openDetail.observe(viewLifecycleOwner) {brewery ->
             openDetail(brewery)
@@ -109,8 +103,8 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         fragment.arguments = bundle
         parentFragmentManager
             .beginTransaction()
-            .detach(this)
             .replace(R.id.nav_host_fragment_content_main, fragment)
+            .addToBackStack(null)
             .commit()
     }
 }

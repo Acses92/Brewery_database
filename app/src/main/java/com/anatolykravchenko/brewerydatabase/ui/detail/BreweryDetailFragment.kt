@@ -33,7 +33,6 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         savedInstanceState: Bundle?
 
     ): View {
-
         return binding.root
     }
 
@@ -47,11 +46,7 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     }
     private fun backButtonPres() {
         binding.backButton.setOnClickListener {
-            listFragment = ListFragment()
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.nav_host_fragment_content_main, listFragment)
-                .commit()
+            parentFragmentManager.popBackStackImmediate()
         }
     }
 

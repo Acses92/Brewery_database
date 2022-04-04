@@ -6,7 +6,7 @@ import com.anatolykravchenko.brewerydatabase.data.network.ApiService
 import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor(
+class BreweryRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ): BreweryRepository {
     var page: Int = 1
