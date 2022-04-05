@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.CreateMethod
@@ -44,9 +45,9 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     }
 
     private fun setupOpenDetail() {
-        listViewModel.openDetail.observe(viewLifecycleOwner) {brewery ->
+        listViewModel.openDetail.observe(viewLifecycleOwner, Observer { brewery ->
             openDetail(brewery)
-        }
+        })
     }
 
     private fun setupUI() {
@@ -84,7 +85,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     }
 
     private fun openDetail(brewery: Brewery) {
-        val fragment = newInstance(brewery)
+        val fragment = BreweryDetailFragment.newInstance(brewery)
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.nav_host_fragment_content_main, fragment)
@@ -92,13 +93,5 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
             .commit()
     }
 
-    companion object {
-        fun newInstance(brewery: Brewery):Fragment {
-            val arg: Bundle = Bundle()
-            arg.putParcelable("Brewery", brewery)
-            val fragment = BreweryDetailFragment()
-            fragment.arguments = arg
-            return fragment
-        }
-    }
+
 }

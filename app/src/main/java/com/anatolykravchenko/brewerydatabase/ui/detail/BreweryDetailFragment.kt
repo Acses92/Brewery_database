@@ -59,4 +59,14 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         binding.breweryState.text = brewery?.state
         binding.breweryWebsiteUrl.text = brewery?.websiteUrl
     }
+
+    companion object {
+        fun newInstance(brewery: Brewery):Fragment {
+            val arg: Bundle = Bundle()
+            arg.putParcelable("Brewery", brewery)
+            val fragment = BreweryDetailFragment()
+            fragment.arguments = arg
+            return fragment
+        }
+    }
 }
