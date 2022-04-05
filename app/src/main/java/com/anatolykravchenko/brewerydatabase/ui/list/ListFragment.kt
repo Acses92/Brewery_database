@@ -35,8 +35,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =  binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,8 +96,6 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     }
 
     companion object {
-        private val ARG = "my_Args"
-
         fun newInstance(brewery: Brewery):Fragment {
             val arg: Bundle = Bundle()
             arg.putParcelable("Brewery", brewery)

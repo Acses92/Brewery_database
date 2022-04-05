@@ -17,6 +17,8 @@ class ListViewModel @Inject constructor(
 
     private val breweriesDto = MutableLiveData<Resource<List<BreweryDto>>>()
     private lateinit var breweriesFromApi: List<BreweryDto>
+    private lateinit var breweryUi: List<Brewery>
+    private lateinit var  breweryUiLiveData: MutableLiveData<List<Brewery>>
     private val repository = breweryRepository
     private val _openDetail = SingleLiveEvent<BreweryDto>()
     val openDetail: LiveData<BreweryDto> = _openDetail
@@ -30,11 +32,18 @@ class ListViewModel @Inject constructor(
             try {
                 breweriesFromApi = repository.getBreweryList()
                 breweriesDto.postValue(Resource.success(breweriesFromApi))
+                breweryUi = breweriesFromApi.map { it->
+                    it.toBrewery()
+                }
+                breweryUiLiveData.postValue(breweryUi)
+
             } catch (e: Exception){
                 breweriesDto.postValue(Resource.error(e.toString(), null))
             }
         }
     }
+
+
 
     fun mapDto(breweryDto: BreweryDto): Brewery {
         return Brewery(
@@ -48,7 +57,6 @@ class ListViewModel @Inject constructor(
             websiteUrl = breweryDto.websiteUrl.toString()
         )
     }
-
 
     fun onClick(breweryDto: BreweryDto) {
         _openDetail.value = breweryDto
