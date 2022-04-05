@@ -3,17 +3,17 @@ package com.anatolykravchenko.brewerydatabase.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.R
+import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 import javax.inject.Inject
 
 class BreweryListAdapter @Inject constructor(
-    private val onItemClicked: (BreweryDto) ->Unit
+    private val onItemClicked: (Brewery) ->Unit
 ):
     RecyclerView.Adapter<BreweryViewHolder>() {
 
 
-    val myData = mutableListOf<BreweryDto>()
+    val myData = mutableListOf<Brewery>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreweryViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.brewery_item, parent,false)
@@ -34,7 +34,7 @@ class BreweryListAdapter @Inject constructor(
         holder.itemView.setOnClickListener {onItemClicked(brewery)}
     }
 
-    fun addBrewery(list: List<BreweryDto>) = myData.addAll(list)
+    fun addBrewery(list: List<Brewery>) = myData.addAll(list)
 }
 
 

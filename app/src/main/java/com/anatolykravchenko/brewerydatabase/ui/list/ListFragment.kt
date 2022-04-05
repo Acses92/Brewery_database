@@ -14,7 +14,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
 import com.anatolykravchenko.brewerydatabase.databinding.BreweryListFragmentBinding
 import com.anatolykravchenko.brewerydatabase.ui.adapters.BreweryListAdapter
-import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.util.Status
 import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 import com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment
@@ -28,7 +27,6 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         createMethod = CreateMethod.INFLATE)
     private lateinit var adapter: BreweryListAdapter
     private lateinit var breweriesRecyclerView: RecyclerView
-    private lateinit var brewery: Brewery
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,8 +44,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     }
 
     private fun setupOpenDetail() {
-        listViewModel.openDetail.observe(viewLifecycleOwner) {it ->
-            brewery =  listViewModel.mapDto(it)
+        listViewModel.openDetail.observe(viewLifecycleOwner) {brewery ->
             openDetail(brewery)
         }
     }
@@ -80,7 +77,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         }
     }
 
-    private fun renderList(breweries: List<BreweryDto>) {
+    private fun renderList(breweries: List<Brewery>) {
         adapter.myData.clear()
         adapter.addBrewery(breweries)
         adapter.notifyDataSetChanged()
