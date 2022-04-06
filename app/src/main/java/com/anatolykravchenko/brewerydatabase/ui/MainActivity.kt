@@ -51,22 +51,36 @@ class MainActivity : AppCompatActivity() {
             binding.drawerLayout.closeDrawers()
             when(menuItem.itemId) {
                 R.id.nav_list -> {
-                    listFragment = ListFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment_content_main, listFragment,
-                            "LIST_FRAGMENT")
-                        .addToBackStack(null)
-                        .commit()
+                    val fragment = supportFragmentManager.findFragmentByTag("LIST_FRAGMENT")
+                    if(fragment != null && fragment.isVisible){
+                        /* no-op */
+                    } else {
+                        listFragment = ListFragment()
+                        supportFragmentManager
+                            .beginTransaction()
+                            .replace(
+                                R.id.nav_host_fragment_content_main, listFragment,
+                                "LIST_FRAGMENT"
+                            )
+                            .addToBackStack(null)
+                            .commit()
+                    }
                 }
                 R.id.nav_search -> {
-                    searchFragment = SearchFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment_content_main, searchFragment,
-                            "SEARCH_FRAGMENT")
-                        .addToBackStack(null)
-                        .commit()
+                    val fragment = supportFragmentManager.findFragmentByTag("SEARCH_FRAGMENT")
+                    if (fragment != null && fragment.isVisible) {
+                        /* no-op */
+                    } else {
+                        searchFragment = SearchFragment()
+                        supportFragmentManager
+                            .beginTransaction()
+                            .replace(
+                                R.id.nav_host_fragment_content_main, searchFragment,
+                                "SEARCH_FRAGMENT"
+                            )
+                            .addToBackStack(null)
+                            .commit()
+                    }
                 }
             }
             true
