@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         listFragment = ListFragment()
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.nav_host_fragment_content_main, listFragment)
+            .replace(R.id.nav_host_fragment_content_main, listFragment, "LIST_FRAGMENT")
             .commit()
     }
 
@@ -54,7 +54,8 @@ class MainActivity : AppCompatActivity() {
                     listFragment = ListFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.nav_host_fragment_content_main, listFragment)
+                        .replace(R.id.nav_host_fragment_content_main, listFragment,
+                            "LIST_FRAGMENT")
                         .addToBackStack(null)
                         .commit()
                 }
@@ -62,7 +63,8 @@ class MainActivity : AppCompatActivity() {
                     searchFragment = SearchFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.nav_host_fragment_content_main, searchFragment)
+                        .replace(R.id.nav_host_fragment_content_main, searchFragment,
+                            "SEARCH_FRAGMENT")
                         .addToBackStack(null)
                         .commit()
                 }

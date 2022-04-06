@@ -1,16 +1,13 @@
 package com.anatolykravchenko.brewerydatabase.ui.list
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
 import com.anatolykravchenko.brewerydatabase.databinding.BreweryListFragmentBinding
@@ -24,18 +21,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private val listViewModel by viewModels<ListViewModel>()
-    private val binding: BreweryListFragmentBinding by viewBinding(
-        createMethod = CreateMethod.INFLATE)
+    private val binding: BreweryListFragmentBinding by viewBinding()
     private lateinit var adapter: BreweryListAdapter
     private lateinit var breweriesRecyclerView: RecyclerView
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return binding.root
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
