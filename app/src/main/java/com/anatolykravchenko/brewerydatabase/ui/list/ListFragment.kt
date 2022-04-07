@@ -21,9 +21,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private val listViewModel by viewModels<ListViewModel>()
-    private val binding: BreweryListFragmentBinding by viewBinding()
+    private val binding  by viewBinding(BreweryListFragmentBinding::bind)
     private lateinit var adapter: BreweryListAdapter
-    private lateinit var breweriesRecyclerView: RecyclerView
 
 
 
@@ -35,18 +34,21 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     }
 
     private fun setupOpenDetail() {
-        listViewModel.openDetail.observe(viewLifecycleOwner, Observer { brewery ->
-            openDetail(brewery)
-        })
+        listViewModel.openDetail.observe(viewLifecycleOwner){
+            val currentFragment = parentFragmentManager.findFragmentByTag("DetailFragment")
+            if(currentFragment==null || currentFragment.isVisible!!)
+            {
+                openDetail(it)
+            }
+        }
     }
 
     private fun setupUI() {
-        breweriesRecyclerView  = binding.BreweyListRecyclerView
-        breweriesRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.BreweyListRecyclerView.layoutManager = LinearLayoutManager(context)
         adapter = BreweryListAdapter {
             listViewModel.onClick(it)
         }
-        breweriesRecyclerView.adapter  = adapter
+        binding.BreweyListRecyclerView.adapter  = adapter
     }
 
     private fun setupObserver() {
@@ -78,7 +80,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         val fragment = BreweryDetailFragment.newInstance(brewery)
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.nav_host_fragment_content_main, fragment)
+            .replace(R.id.nav_host_fragment_content_main, fragment, "DetailFragment")
             .addToBackStack(null)
             .commit()
     }

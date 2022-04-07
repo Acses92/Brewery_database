@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.search_fragment) {
 
     private val searchViewModel by viewModels<SearchViewModel>()
-    private val binding: SearchFragmentBinding by viewBinding()
+    private val binding  by viewBinding(SearchFragmentBinding::bind)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

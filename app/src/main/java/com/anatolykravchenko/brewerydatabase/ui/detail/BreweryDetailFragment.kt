@@ -14,21 +14,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     private val breweryDetailViewModel by viewModels<BreweryDetailViewModel>()
-    private val binding: BreweryDetailFragmentBinding by viewBinding()
-    private  var brewery: Brewery? = null
-    private lateinit var  listFragment: ListFragment
-
+    private val binding by viewBinding(BreweryDetailFragmentBinding::bind)
+    private var brewery: Brewery? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         brewery = arguments?.getParcelable("Brewery")
         setupUi()
         backButtonPres()
-
     }
     private fun backButtonPres() {
-        binding.backButton.setOnClickListener {
-            parentFragmentManager.popBackStackImmediate()
+        binding.buttonBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
     }
 
@@ -40,6 +37,7 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         binding.breweryDateOfCreate.text = brewery?.createdAt
         binding.breweryState.text = brewery?.state
         binding.breweryWebsiteUrl.text = brewery?.websiteUrl
+        brewery = null
     }
 
     companion object {

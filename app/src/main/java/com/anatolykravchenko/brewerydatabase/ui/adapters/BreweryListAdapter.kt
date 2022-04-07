@@ -16,9 +16,7 @@ class BreweryListAdapter (
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreweryViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.brewery_item, parent,false)
-        return BreweryViewHolder(itemView) {
-            onItemClicked(myData[it])
-        }
+        return BreweryViewHolder(itemView)
     }
 
     override fun getItemCount(): Int = myData.size
@@ -29,8 +27,8 @@ class BreweryListAdapter (
             breweryName.text = brewery.name
             breweryType.text = brewery.breweryType
             breweryCity.text = brewery.city
+            holder.itemView.setOnClickListener {onItemClicked(brewery)}
         }
-        holder.itemView.setOnClickListener {onItemClicked(brewery)}
     }
 
     fun addBrewery(list: List<Brewery>) = myData.addAll(list)

@@ -17,8 +17,8 @@ class ListViewModel @Inject constructor(
     private val breweries = MutableLiveData<Resource<List<Brewery>>>()
     private lateinit var breweriesFromApi: List<BreweryDto>
     private lateinit var breweryUi: List<Brewery>
-    private val repository = breweryRepository
-    private val _openDetail = SingleLiveEvent<Brewery>()
+    private lateinit var brewery: Brewery
+    val _openDetail = MutableLiveData<Brewery>()
     val openDetail: LiveData<Brewery> = _openDetail
     init {
         loadBreweries()
@@ -28,7 +28,7 @@ class ListViewModel @Inject constructor(
         viewModelScope.launch {
             breweries.postValue(Resource.loading(null))
             try {
-                breweriesFromApi = repository.getBreweryList()
+                breweriesFromApi = breweryRepository.getBreweryList()
                 breweryUi = breweriesFromApi.map { it->
                     it.toBrewery()
                 }
@@ -39,8 +39,8 @@ class ListViewModel @Inject constructor(
         }
     }
 
-    fun onClick(breweryUi: Brewery) {
-        _openDetail.value = breweryUi
+    fun onClick(brewery: Brewery) {
+        _openDetail.value = brewery
     }
 
     fun getBreweries(): LiveData<Resource<List<Brewery>>> {

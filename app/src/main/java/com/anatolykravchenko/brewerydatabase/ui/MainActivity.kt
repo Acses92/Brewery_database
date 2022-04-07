@@ -14,8 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var listFragment: ListFragment
-    private lateinit var searchFragment: SearchFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun homeFragmentSetup() {
         //Настраиваем стартовый фрагмент
-        listFragment = ListFragment()
+        val listFragment = ListFragment()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.nav_host_fragment_content_main, listFragment, "LIST_FRAGMENT")
@@ -52,10 +51,8 @@ class MainActivity : AppCompatActivity() {
             when(menuItem.itemId) {
                 R.id.nav_list -> {
                     val fragment = supportFragmentManager.findFragmentByTag("LIST_FRAGMENT")
-                    if(fragment != null && fragment.isVisible){
-                        /* no-op */
-                    } else {
-                        listFragment = ListFragment()
+                    if(fragment == null || !fragment.isVisible){
+                        val listFragment = ListFragment()
                         supportFragmentManager
                             .beginTransaction()
                             .replace(
@@ -68,10 +65,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_search -> {
                     val fragment = supportFragmentManager.findFragmentByTag("SEARCH_FRAGMENT")
-                    if (fragment != null && fragment.isVisible) {
-                        /* no-op */
-                    } else {
-                        searchFragment = SearchFragment()
+                    if (fragment == null || !fragment.isVisible) {
+                        val searchFragment = SearchFragment()
                         supportFragmentManager
                             .beginTransaction()
                             .replace(
