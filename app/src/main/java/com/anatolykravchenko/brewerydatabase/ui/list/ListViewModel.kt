@@ -18,7 +18,7 @@ class ListViewModel @Inject constructor(
     private lateinit var breweriesFromApi: List<BreweryDto>
     private lateinit var breweryUi: List<Brewery>
     private lateinit var brewery: Brewery
-    val _openDetail = MutableLiveData<Brewery>()
+    val _openDetail = SingleLiveEvent<Brewery>()
     val openDetail: LiveData<Brewery> = _openDetail
     init {
         loadBreweries()

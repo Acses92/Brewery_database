@@ -5,16 +5,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
+import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 import com.anatolykravchenko.brewerydatabase.databinding.BreweryListFragmentBinding
 import com.anatolykravchenko.brewerydatabase.ui.adapters.BreweryListAdapter
-import com.anatolykravchenko.brewerydatabase.util.Status
-import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 import com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment
+import com.anatolykravchenko.brewerydatabase.util.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,11 +33,9 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private fun setupOpenDetail() {
         listViewModel.openDetail.observe(viewLifecycleOwner){
-            val currentFragment = parentFragmentManager.findFragmentByTag("DetailFragment")
-            if(currentFragment==null || currentFragment.isVisible!!)
-            {
+
                 openDetail(it)
-            }
+
         }
     }
 
