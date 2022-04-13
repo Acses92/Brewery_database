@@ -1,67 +1,31 @@
 package com.anatolykravchenko.brewerydatabase.ui.detail
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import by.kirich1409.viewbindingdelegate.CreateMethod
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
-import com.anatolykravchenko.brewerydatabase.databinding.BreweryDetailFragmentBinding
-import com.anatolykravchenko.brewerydatabase.util.ViewModelFactory
-import com.anatolykravchenko.brewerydatabase.data.repository.RepositoryImpl
-import com.anatolykravchenko.brewerydatabase.data.network.ApiFactory
 import com.anatolykravchenko.brewerydatabase.data.model.Brewery
+import com.anatolykravchenko.brewerydatabase.databinding.BreweryDetailFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
-    private lateinit var breweryDetailViewModel: BreweryDetailViewModel
-    private val binding: BreweryDetailFragmentBinding by viewBinding(
-        createMethod = CreateMethod.INFLATE)
-//    val args: BreweryDetailFragmentArgs by navArgs()
-    private  var brewery: Brewery? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-
-    ): View {
-
-        return binding.root
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            android.R.id.home -> {
-                findNavController().navigate(R.id.action_breweryDetailFragment_to_nav_list)
-            }
-        }
-        return true
-
-    }
+    private val breweryDetailViewModel by viewModels<BreweryDetailViewModel>()
+    private val binding by viewBinding(BreweryDetailFragmentBinding::bind)
+    private var brewery: Brewery? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        brewery = arguments?.getParcelable("Brewery")
-        setupViewModel()
+        brewery = arguments?.getParcelable(DETAIL_KEY)
         setupUi()
+        backButtonPres()
     }
-
-    private fun setupViewModel() {
-        breweryDetailViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(RepositoryImpl(ApiFactory.apiService))
-        ).get(BreweryDetailViewModel::class.java)
+    private fun backButtonPres() {
+        binding.buttonBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun setupUi() {
@@ -72,5 +36,18 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
         binding.breweryDateOfCreate.text = brewery?.createdAt
         binding.breweryState.text = brewery?.state
         binding.breweryWebsiteUrl.text = brewery?.websiteUrl
+        brewery = null
+    }
+
+    companion object {
+        private const val DETAIL_KEY = "BREWERY"
+
+        fun newInstance(brewery: Brewery):Fragment {
+            val arg = Bundle()
+            arg.putParcelable(DETAIL_KEY, brewery)
+            val fragment = BreweryDetailFragment()
+            fragment.arguments = arg
+            return fragment
+        }
     }
 }

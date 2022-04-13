@@ -38,4 +38,15 @@ data class BreweryDto(
     val updatedAt: String?,
     @SerialName("website_url")
     val websiteUrl: Any?
-)
+) {
+    fun toBrewery() = Brewery(
+        breweryType,
+        city,
+        country,
+        createdAt,
+        id,
+        name,
+        state,
+        websiteUrl.toString()
+    )
+}

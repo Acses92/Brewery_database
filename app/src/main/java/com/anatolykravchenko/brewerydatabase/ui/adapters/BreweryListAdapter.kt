@@ -3,22 +3,20 @@ package com.anatolykravchenko.brewerydatabase.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.R
+import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 
-class BreweryListAdapter(
-    private val onItemClicked: (BreweryDto) ->Unit
+class BreweryListAdapter (
+    private val onItemClicked: (Brewery) ->Unit
 ):
     RecyclerView.Adapter<BreweryViewHolder>() {
 
 
-    val myData = mutableListOf<BreweryDto>()
+    val myData = mutableListOf<Brewery>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreweryViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.brewery_item, parent,false)
-        return BreweryViewHolder(itemView) {
-            onItemClicked(myData[it])
-        }
+        return BreweryViewHolder(itemView)
     }
 
     override fun getItemCount(): Int = myData.size
@@ -29,11 +27,11 @@ class BreweryListAdapter(
             breweryName.text = brewery.name
             breweryType.text = brewery.breweryType
             breweryCity.text = brewery.city
+            holder.itemView.setOnClickListener {onItemClicked(brewery)}
         }
-        holder.itemView.setOnClickListener {onItemClicked(brewery)}
     }
 
-    fun addBrewery(list: List<BreweryDto>) = myData.addAll(list)
+    fun addBrewery(list: List<Brewery>) = myData.addAll(list)
 }
 
 

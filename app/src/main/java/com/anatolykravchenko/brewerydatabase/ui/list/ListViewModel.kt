@@ -1,22 +1,21 @@
 package com.anatolykravchenko.brewerydatabase.ui.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
-import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.util.Resource
 import com.anatolykravchenko.brewerydatabase.util.SingleLiveEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlin.Exception
+import javax.inject.Inject
+import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 
-class ListViewModel(private val breweryRepository: BreweryRepository) : ViewModel() {
 
-    private val breweries = MutableLiveData<Resource<List<BreweryDto>>>()
-    private val repository = breweryRepository
-    private val _openDetail = SingleLiveEvent<BreweryDto>()
-    val openDetail: LiveData<BreweryDto> = _openDetail
+@HiltViewModel
+class ListViewModel @Inject constructor(
+    private val breweryRepository: BreweryRepository) : ViewModel() {
+    private val breweries = MutableLiveData<Resource<List<Brewery>>>()
+    private val _openDetail = SingleLiveEvent<Brewery>()
+    val openDetail: LiveData<Brewery> = _openDetail
     init {
         loadBreweries()
     }
@@ -25,21 +24,22 @@ class ListViewModel(private val breweryRepository: BreweryRepository) : ViewMode
         viewModelScope.launch {
             breweries.postValue(Resource.loading(null))
             try {
-                val breweriesFromApi = repository.getBreweryList()
-                breweries.postValue(Resource.success(breweriesFromApi))
+                val breweryUi: List<Brewery> = breweryRepository.getBreweryList().map { it->
+                    it.toBrewery()
+                }
+                breweries.postValue(Resource.success(breweryUi))
             } catch (e: Exception){
                 breweries.postValue(Resource.error(e.toString(), null))
             }
         }
     }
 
-    fun onClick(breweryDto: BreweryDto) {
-        _openDetail.value = breweryDto
+    fun onClick(brewery: Brewery) {
+        _openDetail.value = brewery
     }
 
-    fun getBreweries(): LiveData<Resource<List<BreweryDto>>> {
+    fun getBreweries(): LiveData<Resource<List<Brewery>>> {
         return breweries
     }
-
 
 }
