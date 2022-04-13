@@ -3,7 +3,6 @@ package com.anatolykravchenko.brewerydatabase.ui.detail
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.ListFragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.anatolykravchenko.brewerydatabase.R
@@ -19,7 +18,7 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        brewery = arguments?.getParcelable("Brewery")
+        brewery = arguments?.getParcelable(DETAIL_KEY)
         setupUi()
         backButtonPres()
     }
@@ -41,9 +40,11 @@ class BreweryDetailFragment: Fragment(R.layout.brewery_detail_fragment) {
     }
 
     companion object {
+        private const val DETAIL_KEY = "BREWERY"
+
         fun newInstance(brewery: Brewery):Fragment {
-            val arg: Bundle = Bundle()
-            arg.putParcelable("Brewery", brewery)
+            val arg = Bundle()
+            arg.putParcelable(DETAIL_KEY, brewery)
             val fragment = BreweryDetailFragment()
             fragment.arguments = arg
             return fragment

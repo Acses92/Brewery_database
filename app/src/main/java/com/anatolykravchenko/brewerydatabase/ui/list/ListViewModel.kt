@@ -1,7 +1,6 @@
 package com.anatolykravchenko.brewerydatabase.ui.list
 
 import androidx.lifecycle.*
-import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 import com.anatolykravchenko.brewerydatabase.domain.BreweryRepository
 import com.anatolykravchenko.brewerydatabase.util.Resource
 import com.anatolykravchenko.brewerydatabase.util.SingleLiveEvent
@@ -15,10 +14,7 @@ import com.anatolykravchenko.brewerydatabase.data.model.Brewery
 class ListViewModel @Inject constructor(
     private val breweryRepository: BreweryRepository) : ViewModel() {
     private val breweries = MutableLiveData<Resource<List<Brewery>>>()
-    private lateinit var breweriesFromApi: List<BreweryDto>
-    private lateinit var breweryUi: List<Brewery>
-    private lateinit var brewery: Brewery
-    val _openDetail = SingleLiveEvent<Brewery>()
+    private val _openDetail = SingleLiveEvent<Brewery>()
     val openDetail: LiveData<Brewery> = _openDetail
     init {
         loadBreweries()
@@ -28,8 +24,7 @@ class ListViewModel @Inject constructor(
         viewModelScope.launch {
             breweries.postValue(Resource.loading(null))
             try {
-                breweriesFromApi = breweryRepository.getBreweryList()
-                breweryUi = breweriesFromApi.map { it->
+                val breweryUi: List<Brewery> = breweryRepository.getBreweryList().map { it->
                     it.toBrewery()
                 }
                 breweries.postValue(Resource.success(breweryUi))
