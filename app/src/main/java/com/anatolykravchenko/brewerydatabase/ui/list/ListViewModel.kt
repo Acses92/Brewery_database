@@ -16,12 +16,14 @@ class ListViewModel @Inject constructor(
     private val breweries = MutableLiveData<Resource<List<Brewery>>>()
     private val _openDetail = SingleLiveEvent<Brewery>()
     val openDetail: LiveData<Brewery> = _openDetail
+
     init {
         loadBreweries()
     }
 
     private fun loadBreweries() {
         viewModelScope.launch {
+        /*
             breweries.postValue(Resource.loading(null))
             try {
                 val breweryUi: List<Brewery> = breweryRepository.getBreweryList().map { it->
@@ -30,9 +32,10 @@ class ListViewModel @Inject constructor(
                 breweries.postValue(Resource.success(breweryUi))
             } catch (e: Exception){
                 breweries.postValue(Resource.error(e.toString(), null))
-            }
+            }*/
         }
     }
+
 
     fun onClick(brewery: Brewery) {
         _openDetail.value = brewery
@@ -41,5 +44,8 @@ class ListViewModel @Inject constructor(
     fun getBreweries(): LiveData<Resource<List<Brewery>>> {
         return breweries
     }
+    }
 
-}
+
+
+

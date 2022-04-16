@@ -1,6 +1,7 @@
 package com.anatolykravchenko.brewerydatabase.di
 
 import com.anatolykravchenko.brewerydatabase.data.network.ApiService
+import com.anatolykravchenko.brewerydatabase.data.network.NetworkCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +19,7 @@ object AppModule {
     @Singleton
     fun provideRetrofit () = Retrofit.Builder()
         .baseUrl("https://api.openbrewerydb.org/")
+        .addCallAdapterFactory(NetworkCallAdapterFactory())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
