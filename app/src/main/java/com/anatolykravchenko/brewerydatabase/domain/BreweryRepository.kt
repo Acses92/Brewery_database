@@ -5,8 +5,8 @@ import com.anatolykravchenko.brewerydatabase.data.model.BreweryDto
 
 
 interface BreweryRepository {
-    suspend fun getBreweryList(): Result<List<BreweryDto>>
+    suspend fun getBreweryList(): List<BreweryDto>
 
-    suspend fun getBrewery(): Result<Brewery>
+    suspend fun getBrewery(): Brewery
 
 }

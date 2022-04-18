@@ -9,5 +9,5 @@ interface ApiService {
     @GET("/breweries")
     suspend fun getListBreweries(
         @Query("page") page: Int
-    ): Result<List<BreweryDto>>
+    ): List<BreweryDto>
 }

@@ -33,9 +33,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     private fun setupOpenDetail() {
         listViewModel.openDetail.observe(viewLifecycleOwner){
-
                 openDetail(it)
-
         }
     }
 
@@ -63,6 +61,9 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+        listViewModel.errorEvent.observe(viewLifecycleOwner) {
+     //       Toast.makeText(context, message = it.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 

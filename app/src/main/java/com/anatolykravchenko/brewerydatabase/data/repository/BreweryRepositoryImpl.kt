@@ -12,7 +12,7 @@ class BreweryRepositoryImpl @Inject constructor(
     var page: Int = 1
 
     override suspend fun getBreweryList() = apiService.getListBreweries(page)
-    override suspend fun getBrewery(): Result<Brewery> {
+    override suspend fun getBrewery(): Brewery {
         TODO("Not yet implemented")
     }
 }
