@@ -46,12 +46,8 @@ class ListViewModel @Inject constructor(
                             else -> _errorEvent.value = NetworkError.UNKNOWN
                         }
                     }
-                    is IOException -> {
-                        _errorEvent.value = NetworkError.NO_CONNECTION
-                    }
-                    else -> {
-                        _errorEvent.value = NetworkError.UNKNOWN
-                    }
+                    is IOException -> _errorEvent.value = NetworkError.NO_CONNECTION
+                    else -> _errorEvent.value = NetworkError.UNKNOWN
                 }
             }
         }
@@ -64,7 +60,7 @@ class ListViewModel @Inject constructor(
     fun getBreweries(): LiveData<Resource<List<Brewery>>> {
         return breweries
     }
-    }
+}
 
 
 

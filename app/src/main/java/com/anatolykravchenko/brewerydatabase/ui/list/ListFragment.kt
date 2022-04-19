@@ -26,9 +26,10 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupUI()
-        setupObserver()
         setupOpenDetail()
+        setupUI()
+        setupLoadingDataObserver()
+        setupNetworkErrorObserver()
     }
 
     private fun setupOpenDetail() {
@@ -45,7 +46,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         binding.BreweyListRecyclerView.adapter  = adapter
     }
 
-    private fun setupObserver() {
+    private fun setupLoadingDataObserver() {
         listViewModel.getBreweries().observe(viewLifecycleOwner) {
             when(it.status) {
                 Status.SUCCESS ->{
@@ -62,8 +63,11 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
                 }
             }
         }
+    }
+
+    private fun setupNetworkErrorObserver() {
         listViewModel.errorEvent.observe(viewLifecycleOwner) {
-     //       Toast.makeText(context, message = it.toString(), Toast.LENGTH_SHORT).show()
+
         }
     }
 
