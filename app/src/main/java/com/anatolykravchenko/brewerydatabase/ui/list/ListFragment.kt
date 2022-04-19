@@ -14,6 +14,8 @@ import com.anatolykravchenko.brewerydatabase.ui.adapters.BreweryListAdapter
 import com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment
 import com.anatolykravchenko.brewerydatabase.util.Status
 import dagger.hilt.android.AndroidEntryPoint
+import com.anatolykravchenko.brewerydatabase.data.network.NetworkError
+
 
 @AndroidEntryPoint
 class ListFragment : Fragment(R.layout.brewery_list_fragment) {
@@ -21,7 +23,6 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     private val listViewModel by viewModels<ListViewModel>()
     private val binding  by viewBinding(BreweryListFragmentBinding::bind)
     private lateinit var adapter: BreweryListAdapter
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,8 +67,8 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     }
 
     private fun setupNetworkErrorObserver() {
-        listViewModel.errorEvent.observe(viewLifecycleOwner) {
-
+        listViewModel.errorEvent.observe(viewLifecycleOwner) {networkError->
+            showMessage(getString(networkError.getString()))
         }
     }
 
@@ -86,5 +87,22 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
             .commit()
     }
 
+    private fun showMessage(message: String) {
+        context?.let {
+            Toast.makeText(it, message, Toast.LENGTH_SHORT)
+                .show()
+        }
 
+    }
+
+    private fun NetworkError.getString(): Int =
+        when(this) {
+            NetworkError.NO_CONNECTION -> R.string.network_error_no_connection
+            NetworkError.UNAUTHORIZED -> R.string.network_error_unauthorized
+            NetworkError.BAD_REQUEST -> R.string.network_error_bad_request
+            NetworkError.INTERNAL_SERVER_ERROR -> R.string.network_error_internal_server_error
+            NetworkError.NOT_FOUND -> R.string.network_error_not_found
+            NetworkError.REQUEST_TIMEOUT ->R.string.network_error_request_timeout
+            NetworkError.UNKNOWN -> R.string.network_error_unknown
+        }
 }

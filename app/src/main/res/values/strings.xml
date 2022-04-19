@@ -18,4 +18,11 @@
     <string name="brewery_state">Brewery State</string>
     <string name="brewery_date_of_create">Brewery date of create</string>
     <string name="brewry_website_url">BreweryWebsite</string>
+    <string name="network_error_no_connection">Check internet connection </string>
+    <string name="network_error_unknown">Unknown error. Try later</string>
+    <string name="network_error_unauthorized">Invalid login or password</string>
+    <string name="network_error_not_found">Page not found</string>
+    <string name="network_error_request_timeout">Request timeout</string>
+    <string name="network_error_bad_request">Bad request</string>
+    <string name="network_error_internal_server_error">Internal server error</string>
 </resources>
