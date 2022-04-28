@@ -1,8 +1,8 @@
 package com.anatolykravchenko.brewerydatabase.util
 
 sealed class BreweryState {
-    object START: BreweryState()
-    object LOADING: BreweryState()
-    object SUCCESS: BreweryState()
-    data class FAILURE(val message: String): BreweryState()
+    object Start: BreweryState()
+    object Loading: BreweryState()
+    object Success: BreweryState()
+    data class Failure(val message: String): BreweryState()
 }

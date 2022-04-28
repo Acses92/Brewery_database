@@ -8,9 +8,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.anatolykravchenko.brewerydatabase.data.model.Brewery
-import retrofit2.HttpException
-import java.io.IOException
 import com.anatolykravchenko.brewerydatabase.data.network.NetworkError
+import com.anatolykravchenko.brewerydatabase.util.getException
 
 
 @HiltViewModel
@@ -35,20 +34,7 @@ class ListViewModel @Inject constructor(
                 }
                 breweries.postValue(Resource.success(breweryUi))
             } catch (error: Throwable){
-                when(error) {
-                    is HttpException -> {
-                        when(error.response()?.code()) {
-                            400 -> _errorEvent.value = NetworkError.BAD_REQUEST
-                            401 -> _errorEvent.value = NetworkError.UNAUTHORIZED
-                            404 -> _errorEvent.value = NetworkError.NOT_FOUND
-                            408 -> _errorEvent.value = NetworkError.REQUEST_TIMEOUT
-                            500 -> _errorEvent.value = NetworkError.INTERNAL_SERVER_ERROR
-                            else -> _errorEvent.value = NetworkError.UNKNOWN
-                        }
-                    }
-                    is IOException -> _errorEvent.value = NetworkError.NO_CONNECTION
-                    else -> _errorEvent.value = NetworkError.UNKNOWN
-                }
+                _errorEvent.value = error.getException()
             }
         }
     }
