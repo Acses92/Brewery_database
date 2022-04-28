@@ -14,6 +14,8 @@ import com.anatolykravchenko.brewerydatabase.ui.adapters.BreweryListAdapter
 import com.anatolykravchenko.brewerydatabase.ui.detail.BreweryDetailFragment
 import com.anatolykravchenko.brewerydatabase.util.Status
 import dagger.hilt.android.AndroidEntryPoint
+import com.anatolykravchenko.brewerydatabase.util.getString
+
 
 @AndroidEntryPoint
 class ListFragment : Fragment(R.layout.brewery_list_fragment) {
@@ -23,19 +25,17 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
     private lateinit var adapter: BreweryListAdapter
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupUI()
-        setupObserver()
         setupOpenDetail()
+        setupUI()
+        setupLoadingDataObserver()
+        setupNetworkErrorObserver()
     }
 
     private fun setupOpenDetail() {
         listViewModel.openDetail.observe(viewLifecycleOwner){
-
                 openDetail(it)
-
         }
     }
 
@@ -47,7 +47,7 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         binding.BreweyListRecyclerView.adapter  = adapter
     }
 
-    private fun setupObserver() {
+    private fun setupLoadingDataObserver() {
         listViewModel.getBreweries().observe(viewLifecycleOwner) {
             when(it.status) {
                 Status.SUCCESS ->{
@@ -66,6 +66,12 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
         }
     }
 
+    private fun setupNetworkErrorObserver() {
+        listViewModel.errorEvent.observe(viewLifecycleOwner) {networkError->
+            showMessage(getString(networkError.getString()))
+        }
+    }
+
     private fun renderList(breweries: List<Brewery>) {
         adapter.myData.clear()
         adapter.addBrewery(breweries)
@@ -79,6 +85,14 @@ class ListFragment : Fragment(R.layout.brewery_list_fragment) {
             .replace(R.id.nav_host_fragment_content_main, fragment, "DetailFragment")
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun showMessage(message: String) {
+        context?.let {
+            Toast.makeText(it, message, Toast.LENGTH_SHORT)
+                .show()
+        }
+
     }
 
 
